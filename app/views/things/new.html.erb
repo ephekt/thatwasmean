@@ -1,0 +1,27 @@
+<% content_for :on_ready do %>
+  jq("textarea").focus();
+<% end %>
+<h1>time to add a new thing</h1>
+
+<% form_for(@thing) do |f| %>
+  <%= f.error_messages %>
+  <table class='themed'>
+  <tr>
+    <td><%= f.label :category %></td>
+    <td><%= input 'thing', :category, :style => "border: 2px solid #009ACD; font-size: 14px; font-family: Trebuchet MS", :onmouseup => "display_category_context_message(this.value);" %><span id="category_result"></span></td>
+  </tr>
+  <tr>
+    <td><%= f.label :thing %></td>
+    <td><%= f.text_area :thing, :style => "width: 50em; height: 10em; border: 2px solid #009ACD; font-size: 14px; font-family: Trebuchet MS" %></td>
+  </tr>
+  <tr>
+    <td>Human?</td>
+    <td>
+      <%= recaptcha_tags %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 style="text-align: right;"><%= f.submit 'add new thing', :style => "font-size: 20px;" %> or <%= link_to 'cancel', things_path %></td>
+  </tr>
+  </table>
+<% end %>

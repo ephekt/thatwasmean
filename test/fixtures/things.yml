@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  category: MyString
+  thing: MyText
+  disputed: 1
+  vote_for: 1
+  vote_against: 1
+
+two:
+  category: MyString
+  thing: MyText
+  disputed: 1
+  vote_for: 1
+  vote_against: 1

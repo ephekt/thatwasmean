@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="keywords" content="mean things, that was mean, stories, jokes, the hurricane, online complaining, stuff girls waste their time on">
+  <%= yield :head -%>
+  <title>that was mean... a list of snippets</title>
+  <%= stylesheet_link_tag 'styles', 'blitz' %>
+  <%= javascript_include_tag 'jquery-1.3.2.min', 'jquery-ui-1.7.2.custom.min', 'application' %>
+  <%= yield :css %>
+  <script type='text/javascript'>
+    var jq = jQuery.noConflict();
+    jq(document).ready(function(){
+      <%= yield :on_ready %>
+    });    
+  </script>
+    <%= yield :javascript %>  
+</head>
+<body>
+  <div id="flash_container" style="display:<%= (flash[:notice] || flash[:error]) ? 'block' : 'none' %>;">
+    <div id="flash_notice" class="flash_content" style="display:<%= flash[:notice] ? 'block' : 'none' %>;"><%= flash[:notice] %> <%= link_to 'hide', '#', :onclick => "hide_flash_notice(); return false;", :class => 'flash_close' %></div>
+    <div id="flash_error" class="flash_content" style="display:<%= flash[:error] ? 'block' : 'none' %>;"><%= flash[:error] %> <%= link_to 'hide', '#', :onclick => "hide_flash_error(); return false;", :class => 'flash_close' %></div>
+  </div>
+  <div id="header">
+    <a href="/"><%= image_tag "logo_sample_one.png", :class => 'logo' %></a>
+    <div id="flash_about">
+        <%= link_to 'Submit something', '#', :onclick => "return toggle_div('add_new_thing');", :class => "add_new_thing" %>
+        <%= link_to (image_tag('icons/twitter.png', :alt => 'Follow on Twitter', :style => 'margin-top: 0.2em; border: 0;')), 'http://www.twitter.com/thatwasmean', :alt => 'Follow on Twitter', :class => 'nav_link' %>
+        <%= link_to 'About', '#', :onclick => "return toggle_div('twm_example');", :class => "nav_link" %>
+        <%= link_to 'Categories', '#', :onclick => "return toggle_div('browse_by');", :class => "nav_link" %>
+        <%= link_to 'Top voted', things_path(:filter => 'top'), :class => 'nav_link' %>
+        <div id="add_new_thing">
+          <%= render :partial => 'things/form' %>
+        </div>
+        <div id="twm_example">
+          Thatwasmean features anonymous snippets of randoms thoughts, facts, and things.
+          <br />
+          The voting feature lets users agree (<b>+1</b>) or disagree (<b>-1</b>) with snippets.
+        </div>
+        <div id="browse_by">
+            <%= link_to 'mean', '/things?filter=mean', :class => 'mean link' %>
+            <%= link_to 'nice', '/things?filter=nice', :class => 'nice link' %>
+            <%= link_to 'weird', '/things?filter=weird', :class => 'weird link' %>
+            <%= link_to 'stupid', '/things?filter=stupid', :class => 'stupid link' %>
+            <%= link_to 'hurricane', '/things?filter=hurricane', :class => 'hurricane link' %>
+            <%= link_to 'funny', '/things?filter=funny', :class => 'funny link' %>
+            <%= link_to 'other', '/things?filter=other', :class => 'other link' %>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+  <div id="content_container">
+    <%= yield %>
+  </div>
+  <div style="clear:both;"></div>
+  <div style="border-top: 1px solid #666; text-align: center; margin-top: 20px; font-size: 10px;">
+    &copy; ThinkEffect Media. All rights reserved. All content submitted anonymously. Feedback / Contact, please e-mail <a href="mailto:mike@thinkeffect.com">mike</a>
+    <br />
+    <a href="http://dryicons.com" target="_blank">Dry Icons</a>
+    </div>
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-10236846-1");
+    pageTracker._trackPageview();
+    } catch(err) {}
+  </script>
+</body>
+</html>

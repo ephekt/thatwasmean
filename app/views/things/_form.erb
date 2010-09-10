@@ -1,0 +1,22 @@
+Category: 
+<select id="thing_category" style="background-color: #F5F5F5; border: 0; font-size: 16px; font-family: Trebuchet MS;" onmouseup="display_category_context_message(this.value);" >
+  <option value="nice">nice</option>
+  <option selected="selected" value="mean">mean</option>
+  <option value="weird">weird</option>
+  <option value="stupid">stupid</option>
+  <option value="hurricane">hurricane</option>
+  <option value="funny">funny</option>
+  <option value="other">other</option>
+</select><span id="category_result" style="display:inline;"></span>
+<div style="font-size: 10px; color: #666; margin-bottom: 0.4em; margin-top: 0.4em;"><span id="add_new_thing_title" style="color: #333; font-size: 16px;">Type your thing here... </span>only the details about why you're posting are important</div>
+<textarea
+  id="add_new_thing_body"
+  class="thing_input"
+  cols="40"
+  rows="10"
+  style="border: 2px solid #666;"
+  onkeyup="check_char_count();"
+  onkeydown="check_char_count();"
+  onmouseout="check_char_count();"></textarea>
+<span id="character_count">450</span> remaining characters
+<div id="new_thing_buttons"><%= link_to 'add new thing', '#', :class => 'button', :onclick => "return process_thing();" %> or <%= link_to 'cancel', '#', :onclick => "toggle_div('add_new_thing'); hide_flash();" %></div>

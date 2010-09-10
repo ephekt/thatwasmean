@@ -1,0 +1,33 @@
+<% content_for :head do %>
+<meta http-equiv="refresh" content="360">
+<% end %>
+<%= hidden_field_tag 'auth_token', form_authenticity_token %>
+<% @things.each do |thing| %>
+  <div style="clear:both;"></div>  
+    <div id="thing_<%= thing.id %>" >
+       <div id='details_<%=  thing.id %>' class="thing_details">
+          category: <span class="thing_category_name <%= thing.category %>"><%=h thing.category %></span>
+          <!-- votes: <span id="votes_for_<%= thing.id %>" class="vote_count"><%=h thing.current_votes %></span> -->
+          <a class='thing_linker' href='/things/<%=  thing.id %>'>permalink</a>
+        </div>
+      <div class="voting_booth" >
+        <div class="arrow_up">
+          <a href="#"><%= image_tag "up_arrow.gif", :style => 'border: none;', :onclick => "cast_vote(1,#{thing.id}); return false;" %></a>
+        </div>
+        <span id="votes_for_<%= thing.id %>" style="" class="votes_count"><%=h thing.current_votes %></span>
+        <div class="arrow_down">
+          <a href="#"><%= image_tag "down_arrow.gif", :style => 'border: none;', :onclick => "cast_vote(0,#{thing.id}); return false;" %></a>
+        </div>
+      </div>
+      <!--
+      <div class="thing_category">
+        <span class="thing_category_name <%= thing.category %>"><%=h thing.category %></span>
+      </div>
+      -->
+      <div class="thing_entry">
+      <%= display_thing_content(thing) %>
+    </div>    
+  </div>
+<% end %>
+  <div style="clear:both;"></div>
+  <div align="center"><%= link_to 'submit something', '#', :onclick => "scroll_up(); toggle_div('add_new_thing');", :class => "add_new_thing" %></div>

@@ -1,0 +1,20 @@
+<h1>edit that thing</h1>
+
+<% form_for(@thing) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :category %><br />
+    <%= input 'thing', :category, :style => "border: 2px solid #009ACD; font-size: 14px; font-family: Trebuchet MS" %>
+  </p>
+  
+    <%= f.label :thing %><br />
+    <%= f.text_area :thing, :style => "border: 2px solid #009ACD; font-size: 14px; font-family: Trebuchet MS" %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @thing %> |
+<%= link_to 'Back', things_path %>

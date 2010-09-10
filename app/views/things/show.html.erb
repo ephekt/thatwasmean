@@ -1,0 +1,10 @@
+<table style="width: 80%; margin: auto;">
+  <tr class="<%= @thing.category %>">
+    <td style="font-size: 14px; font-weight: bold; text-align: center; width: 5em;"><%=h @thing.category %></td>
+    <td ><div ><%= @thing.thing.gsub("\n","<br />") %></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="text-align: center;">Posted on <%=h @thing.created_at.strftime("%B %d, %Y") %></td>
+  </tr>
+</table>
+<div align=center><%= link_to 'go back to the index', things_path, :style => 'font-size: 20px; font-family: Trebuchet MS;' %></div>

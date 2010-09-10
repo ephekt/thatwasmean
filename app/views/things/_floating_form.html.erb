@@ -1,0 +1,67 @@
+<style type="text/css">
+		.ui-dialog .ui-state-highlight, .ui-dialog .ui-state-error { padding: .3em;  }	
+		#add_new_thing_dialog { font-size: 14px;}
+</style>
+	<script type="text/javascript">
+	jq(function() {
+		jq("#add_new_thing_dialog").dialog({
+			bgiframe: true,
+			autoOpen: false,
+            resizable: false,
+			height: 450,
+			width: 500,
+			modal: true,
+			buttons: {
+				'save thing': function() {
+  				var f_body = jq("#thing_body").val();
+  				var f_category = jq("#thing_category").val();
+  				if( f_body != "" ) {
+            		jq.ajax({
+                          url: "<%= url_for :action => :create_ajax, :controller => 'things' %>",
+                          global: false,
+                          dataType: "script",
+                          type: "POST",
+                          data: ({
+                            authenticity_token : "<%= form_authenticity_token %>",
+                            body : f_body,
+                            category : f_category
+                          })
+                })
+    				jq(this).dialog('close');
+            jq('html').animate({scrollTop:0}, 'slow'); 
+                    show_flash_notice("Hang in there... We're adding a new "+f_category+" thing", false);
+                    jq('#flash_container').fadeOut(6000, function() { window.location.href=window.location.href  } );
+  			  }
+  			  else
+  			  {
+            jq("#thing_body_title").attr("style","color: red; font-size: 14px; font-weight: bold;");
+            jq("#thing_body").css("border-color", "red");          
+  			  }
+				},
+				Cancel: function() {
+				  jq('#thing_body').val('');
+					jq(this).dialog('close');
+				}
+			}
+		});
+	});
+	</script>
+
+<div id="add_new_thing_dialog" title="Add a new thing" style="display:none">
+  <span style="font-weight:bold; font-size: 12px;">This is anonymous... only the details about why you're posting are important.</span>
+  <br /><br />
+  Category <span style="color: #666666; font-size: 10px;"></span>
+  <br />
+  <select id="thing_category" style="width: 20%; border: 2px solid rgb(0, 154, 205); font-size: 14px; font-family: Trebuchet;" onmouseup="display_category_context_message(this.value);" >
+    <option value="nice">nice</option>
+    <option selected="selected" value="mean">mean</option>
+    <option value="weird">weird</option>
+    <option value="stupid">stupid</option>
+    <option value="hurricane">hurricane</option>
+    <option value="funny">funny</option>    
+  </select><span id="category_result" style="display:inline;"></span>
+  <br /><br />
+  What happened?
+  <br />
+  <textarea id="thing_body" cols="60" rows="12" class="thing_input" style="border: 2px solid rgb(0, 154, 205);"></textarea>  
+</div>
